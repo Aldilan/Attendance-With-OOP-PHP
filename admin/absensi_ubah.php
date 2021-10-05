@@ -165,15 +165,17 @@ if (!empty($_GET['rombel'])) {
             $table = "tbl_absen";
             $redirect = '?menu=ubahabsen';
             $n = $row['nis'];
-            $where = "nis = $n";
+            $tbabsen = mysqli_fetch_array(mysqli_query($konek, "SELECT * FROM `tbl_absen` WHERE tgl_absen = '$tgl' AND nis = $n"));
+            $id_absen = $tbabsen['id_absen'];
+            $where = "nis = $n AND id_absen = $id_absen ";
             if (@$_POST['keterangan' . $n] == 'hadir') {
-                $field = array( 'nis' => $n, 'hadir' => '1', 'sakit' => '0', 'ijin' => '0', 'alpa' => '0', 'tgl_absen' => $tgl );
+                $field = array( 'nis' => $n, 'hadir' => '1', 'sakit' => '0', 'ijin' => '0', 'alpa' => '0', 'tgl_absen' => $tgl, 'id_absen' => $id_absen );
             } elseif (@$_POST['keterangan' . $n] == 'sakit') {
-                $field = array( 'nis' => $n, 'hadir' => '0', 'sakit' => '1', 'ijin' => '0', 'alpa' => '0', 'tgl_absen' => $tgl );
+                $field = array( 'nis' => $n, 'hadir' => '0', 'sakit' => '1', 'ijin' => '0', 'alpa' => '0', 'tgl_absen' => $tgl, 'id_absen' => $id_absen );
             } elseif (@$_POST['keterangan' . $n] == 'ijin') {
-                $field = array( 'nis' => $n, 'hadir' => '0', 'sakit' => '0', 'ijin' => '1', 'alpa' => '0', 'tgl_absen' => $tgl );
+                $field = array( 'nis' => $n, 'hadir' => '0', 'sakit' => '0', 'ijin' => '1', 'alpa' => '0', 'tgl_absen' => $tgl, 'id_absen' => $id_absen );
             } else {
-                $field = array( 'nis' => $n, 'hadir' => '0', 'sakit' => '0', 'ijin' => '0', 'alpa' => '1', 'tgl_absen' => $tgl );
+                $field = array( 'nis' => $n, 'hadir' => '0', 'sakit' => '0', 'ijin' => '0', 'alpa' => '1', 'tgl_absen' => $tgl, 'id_absen' => $id_absen );
             }
 
             if (isset($_REQUEST['ubah'])) {
